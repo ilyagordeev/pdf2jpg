@@ -7,7 +7,6 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Timer;
 
@@ -45,6 +44,6 @@ public class Main {
 
         final Main main = CommandLine.populateCommand(new Main(), args);
         final Timer timer = new Timer();
-        timer.schedule(new Converter(Paths.get(main.path), main.resolution), 0, main.timer*60000);
+        timer.schedule(new FileFinder(Paths.get(main.path), main.resolution), 0, main.timer*60000);
     }
 }
