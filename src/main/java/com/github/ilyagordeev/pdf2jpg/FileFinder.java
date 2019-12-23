@@ -18,15 +18,24 @@ public class FileFinder extends TimerTask {
     private final Path pathPDF;
     private static boolean busy = false;
 
-    public boolean refresh() throws IOException, InterruptedException {
-        if (busy) return false;
-        checkPath(pathPDF);
-        return true;
-    }
-
     public FileFinder(Path pathPDF, int resolution) {
         this.resolution = resolution;
         this.pathPDF = pathPDF;
+    }
+
+    @Override
+    public void run() {
+        try {
+            refresh();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean refresh() throws IOException, InterruptedException {
+        if (busy) return false;
+        checkPath(pathPDF);
+        return true;
     }
 
     private void checkPath(Path pathPDF) throws IOException, InterruptedException {
@@ -77,14 +86,5 @@ public class FileFinder extends TimerTask {
         service.shutdown();
         service.awaitTermination(20, TimeUnit.MINUTES);
         busy = false;
-    }
-
-    @Override
-    public void run() {
-        try {
-            refresh();
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }
