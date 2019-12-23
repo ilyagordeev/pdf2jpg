@@ -75,7 +75,7 @@ public class FileFinder extends TimerTask {
             service.submit(new Converter(new File(f + ".pdf"), resolution));
         });
         service.shutdown();
-        service.awaitTermination(5, TimeUnit.MINUTES);
+        service.awaitTermination(20, TimeUnit.MINUTES);
         busy = false;
     }
 
