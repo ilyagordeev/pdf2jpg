@@ -43,7 +43,12 @@ public class Main {
         logger.setLevel(Level.FATAL);
 
         final Main main = CommandLine.populateCommand(new Main(), args);
-        final Timer timer = new Timer();
-        timer.schedule(new FileFinder(Paths.get(main.path), main.resolution), 0, main.timer*60000);
+        if (main.timer > 0) {
+            final Timer timer = new Timer();
+            timer.schedule(new FileFinder(Paths.get(main.path), main.resolution), 0, main.timer*60000);
+        } else {
+            FileFinder fileFinder = new FileFinder(Paths.get(main.path), main.resolution);
+            fileFinder.run();
+        }
     }
 }
