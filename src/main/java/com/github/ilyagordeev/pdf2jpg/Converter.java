@@ -29,22 +29,17 @@ public class Converter implements Runnable{
     }
 
     private void generateImageFromPDF(File file) throws IOException {
-
         PDDocument document = PDDocument.load(file);
-        if (document != null) {
+        if (document != null)
             System.out.printf("\nFile \"%s\" loaded with %d pages\n", file.getName(), document.getNumberOfPages());
-        }
-        else {
+        else
             return;
-        }
 
         PDFRenderer pdfRenderer = new PDFRenderer(document);
-
         ImageIO.scanForPlugins();
 
         for (int page = 0; page < document.getNumberOfPages(); ++page) {
             System.out.print("#");
-
             BufferedImage bufferedImage = pdfRenderer.renderImageWithDPI(
                     page, 150, ImageType.RGB);
             ImageIOUtil.writeImage(
